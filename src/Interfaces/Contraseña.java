@@ -67,6 +67,7 @@ public class Contraseña extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("Tienes un error de sentencia ");
         }
+        //no hice nada porque solo queria actualizar
 
     }
 
