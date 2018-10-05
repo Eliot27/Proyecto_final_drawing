@@ -11,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import Interfaces.admin.Master_admin;
-import Interfaces.usuario.Master_user;
+import Interfaces.admin.*;
+import Interfaces.usuario.*;
 
 /**
  *
@@ -47,7 +47,7 @@ public class Contraseña extends javax.swing.JFrame {
                 System.out.println("ustes esta en Drawing " + user);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Bienvenidos");
-                Master_user ingreso = new Master_user();
+                Consulta_Usuario ingreso = new Consulta_Usuario();
                 ingreso.setVisible(true);
                 ingreso.pack();
 
@@ -61,8 +61,11 @@ public class Contraseña extends javax.swing.JFrame {
                 ingreso.pack();
                 
             }            
-//            if ((!capU.equals(user)) || (!capA.equals(user))) {
-//                JOptionPane.showMessageDialog(this, "No Existe este Usuario ...");
+            if ((!capU.equals(user)) && (!capA.equals(user))) {
+                JOptionPane.showMessageDialog(this, "No Existe este Usuario , ni administrador ...");
+            }
+//            if ((!capA.equals(user))){
+//                JOptionPane.showMessageDialog(this, "No existe este admin");
 //            }
         } catch (SQLException ex) {
             System.out.println("Tienes un error de sentencia ");
