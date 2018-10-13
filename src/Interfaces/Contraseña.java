@@ -35,6 +35,8 @@ public class Contraseña extends javax.swing.JFrame {
 //SELECT nombre1a,idclave, nombre1u, idpass FROM usuario, administrador where administrador.nombre1a = 'eliot' && administrador.idclave = '123' OR usuario.nombre1u= 'karen' && usuario.idpass = '123';
         String capU = "";
         String capA = "";
+        String passU = "";
+        String passA = "";
         String sql = "SELECT nombre1a,idclave, nombre1u, idpass FROM usuario, administrador where administrador.nombre1a = '" + user + "' && administrador.idclave = '" + pass + "' OR usuario.nombre1u= '" + user + "' && usuario.idpass = '" + pass + "';";
         try {
             Statement st = cn.createStatement();
@@ -42,8 +44,10 @@ public class Contraseña extends javax.swing.JFrame {
             while (rs.next()) {
                 capA = rs.getString("nombre1a");
                 capU = rs.getString("nombre1u");
+                passU = rs.getString("idpass");
+                passA = rs.getString("idclave");
             }
-            if (capU.equals(user)) {
+            if (capU.equals(user) && passU.equals(pass)) {
                 System.out.println("ustes esta en Drawing " + user);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Bienvenidos");
@@ -52,11 +56,11 @@ public class Contraseña extends javax.swing.JFrame {
                 ingreso.pack();
 
             }
-            if (capA.equals(user)){
+            if (capA.equals(user) && passA.equals(pass)){
                 System.out.println("ustes esta en Drawing " + user);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Bienvenidos");
-                Master_admin ingreso = new Master_admin();
+                Menu_Master_admin ingreso = new Menu_Master_admin();
                 ingreso.setVisible(true);
                 ingreso.pack();
                 
