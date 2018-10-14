@@ -14,8 +14,13 @@ public class Menu_Master_admin extends javax.swing.JFrame {
     /**
      * Creates new form Master_admin
      */
-    public Menu_Master_admin() {
+    private String campo ="ERROR";
+    
+    
+    public Menu_Master_admin(String valor) {
         initComponents();
+        this.campo = valor;
+        
     }
 
     /**
@@ -123,6 +128,12 @@ public class Menu_Master_admin extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        
+        InsertarCurso ic = new InsertarCurso(this.campo);
+        this.setVisible(false);
+        ic.setVisible(true);
+        ic.pack();       
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
@@ -156,7 +167,7 @@ public class Menu_Master_admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu_Master_admin().setVisible(true);
+                new Menu_Master_admin("").setVisible(true);
             }
         });
     }

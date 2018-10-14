@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import Interfaces.admin.*;
 import Interfaces.usuario.*;
 
+
 /**
  *
  * @author EliotM
@@ -24,20 +25,22 @@ public class Contraseña extends javax.swing.JFrame {
      * Creates new form Contraseña
      */
     Conexiones cc = new Conexiones();
-    Connection cn = cc.conexion1();
+    Connection cn = cc.conexion1();    
+    
+    public String capU = "";
+    public String capA = "";
+    public String passU = "";
+    public String passA = "";
+    public String idA = "";
+    public String idU = "";
 
     public Contraseña() {
         initComponents();
     }
 
     void acceder(String user, String pass) {
-//SELECT * FROM usuario, administrador where administrador.nombre1a = 'fer' && administrador.idclave = 12 OR usuario.nombre1u= 'sara';
-//SELECT nombre1a,idclave, nombre1u, idpass FROM usuario, administrador where administrador.nombre1a = 'eliot' && administrador.idclave = '123' OR usuario.nombre1u= 'karen' && usuario.idpass = '123';
-        String capU = "";
-        String capA = "";
-        String passU = "";
-        String passA = "";
-        String sql = "SELECT nombre1a,idclave, nombre1u, idpass FROM usuario, administrador where administrador.nombre1a = '" + user + "' && administrador.idclave = '" + pass + "' OR usuario.nombre1u= '" + user + "' && usuario.idpass = '" + pass + "';";
+
+        String sql = "SELECT nombre1a,idclave,idadministrador, nombre1u, idpass,idusuario FROM usuario, administrador where administrador.nombre1a = '" + user + "' && administrador.idclave = '" + pass + "' OR usuario.nombre1u= '" + user + "' && usuario.idpass = '" + pass + "';";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -46,6 +49,9 @@ public class Contraseña extends javax.swing.JFrame {
                 capU = rs.getString("nombre1u");
                 passU = rs.getString("idpass");
                 passA = rs.getString("idclave");
+                idA = rs.getString("idadministrador");
+                idU = rs.getString("idusuario");
+                
             }
             if (capU.equals(user) && passU.equals(pass)) {
                 System.out.println("ustes esta en Drawing " + user);
@@ -60,11 +66,11 @@ public class Contraseña extends javax.swing.JFrame {
                 System.out.println("ustes esta en Drawing " + user);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Bienvenidos");
-                Menu_Master_admin ingreso = new Menu_Master_admin();
+                Menu_Master_admin ingreso = new Menu_Master_admin(idA);
                 ingreso.setVisible(true);
-                ingreso.pack();
+                ingreso.pack();       
                 
-            }            
+            }
             if ((!capU.equals(user)) && (!capA.equals(user))) {
                 JOptionPane.showMessageDialog(this, "No Existe este Usuario , ni administrador ...");
             }
@@ -177,6 +183,8 @@ public class Contraseña extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "conectado");
         }
+   
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
