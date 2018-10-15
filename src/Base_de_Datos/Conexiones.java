@@ -32,6 +32,27 @@ public class Conexiones {
     Connection conectar = null;
     Statement st;
 
+    public Conexiones() {
+    }
+
+    public Connection getConectar() {
+        return conectar;
+    }
+
+    public void setConectar(Connection conectar) {
+        this.conectar = conectar;
+    }
+
+    public Statement getSt() {
+        return st;
+    }
+
+    public void setSt(Statement st) {
+        this.st = st;
+    }
+    
+    
+
     public Connection conexion1() {
         try {
             Class.forName("com.mysql.jdbc.Driver");

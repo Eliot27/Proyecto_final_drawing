@@ -14,7 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import Clases.curso;
+import Clases.Curso;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,8 +27,8 @@ public class InsertarCurso extends javax.swing.JFrame {
     File filesObj;
     String Rutaimage;
     ArrayList arr1;
-    curso objcurso;
-    ArrayList<curso>arrCurso;
+    Curso objcurso;
+    ArrayList<Curso>arrCurso;
     
 
     /**
@@ -173,7 +173,7 @@ public class InsertarCurso extends javax.swing.JFrame {
         String dura = duracion.getText();
         String idadmin = this.dato1;
         
-        objcurso = new curso(nom, dura, idadmin, Rutaimage);
+        objcurso = new Curso(nom, dura, idadmin, Rutaimage);
         arrCurso.add(objcurso);
         insertar = objcurso.InsertarCurso(arrCurso);
         
