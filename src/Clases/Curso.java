@@ -8,23 +8,31 @@ package Clases;
 import java.util.ArrayList;
 import Base_de_Datos.Conexiones;
 import Base_de_Datos.Inserciones;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  *
  * @author EliotM
  */
-public class curso {
-    
+public class Curso {
+
     private String nombre;
     private String duracion;
     private String idadmin;
     private String imagen;
 
-    public curso() {
+    public Curso() {
+
     }
 
-    public curso(String nombre, String duracion, String idadmin, String imagen) {
+    public Curso(String nombre, String idadmin) {
+        this.nombre = nombre;
+        this.idadmin = idadmin;
+    }
+
+    public Curso(String nombre, String duracion, String idadmin, String imagen) {
         this.nombre = nombre;
         this.duracion = duracion;
         this.idadmin = idadmin;
@@ -38,7 +46,6 @@ public class curso {
     public void setIdadmin(String idadmin) {
         this.idadmin = idadmin;
     }
-    
 
     public String getNombre() {
         return nombre;
@@ -62,14 +69,14 @@ public class curso {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }    
-    
+    }
+
     @Override
     public String toString() {
         return "curso{" + "nombre=" + nombre + ", duracion=" + duracion + ", imagen=" + imagen + '}';
     }
 
-    public boolean InsertarCurso(ArrayList<curso> arrCurso) {
+    public boolean InsertarCurso(ArrayList<Curso> arrCurso) {
         String sql = "";
         //Conexiones objcone = new Conexiones();
         Inserciones objisc = new Inserciones();
@@ -79,21 +86,35 @@ public class curso {
         sql = "INSERT INTO curso ( nombre_curso, duracion, idadministradorC, fotocurso)VALUES(?,?,?,?)";
 
         //String sql, String nombre, String sangre, String sexo, String raza, String vacunas, String imagecan, String Cedula_dueño
-        for (curso arrc : arrCurso) {
-            
+        for (Curso arrc : arrCurso) {
+
             conexion = objisc.crearConexion();
-            if (conexion){
-                
-                insertar = objisc.Sql_insertar_curso( sql ,arrc.getNombre(),arrc.getDuracion(),arrc.getIdadmin(), arrc.getImagen());
-                
+            if (conexion) {
+
+                insertar = objisc.Sql_insertar_curso(sql, arrc.getNombre(), arrc.getDuracion(), arrc.getIdadmin(), arrc.getImagen());
+
             }
-            
+        }
+        return insertar;
+    }
+
+    public LinkedList<Curso> Buscarcurso(String sql) {
+        LinkedList<Curso> lc = new LinkedList<>();
+        Conexiones objb = new Conexiones();
+        if (objb.conexion()) {
+            try {
+                ResultSet rs = objb.getSt().executeQuery(sql);
+                while (rs.next()) {
+                    String nomb = rs.getString("nombre_curso");
+                    String id = rs.getString("idcurso");
+                    lc.add(new Curso(nomb, id));
+                }
+            } catch (SQLException e) {
+                System.out.println("Error " + e.toString());
+            }
         }
 
-        return insertar;
-        
-        }
-    
-    
-    
+        return lc;
+    }
+
 }
